@@ -6,6 +6,8 @@ import MovieCard from './MovieCard';
 export default function Movie(props) {
   const [movie, setMovie] = useState();
 
+  const { addToSavedList } = props;
+
   const { movieID } = useParams();
 
   let id = movieID;
@@ -27,7 +29,7 @@ export default function Movie(props) {
   }, [id]);
 
   // Uncomment this only when you have moved on to the stretch goals
-  // const saveMovie = evt => { }
+  const saveMovie = (movie) => { addToSavedList(movie) };
 
   if (!movie) {
     return <div>Loading movie information...</div>;
@@ -45,7 +47,7 @@ export default function Movie(props) {
             {star}
           </div>
         ))}
-        <div className="save-button">Save</div>
+        <div className="save-button" onClick={() => saveMovie(movie)}>Save</div>
       </div>
     </div>
   );

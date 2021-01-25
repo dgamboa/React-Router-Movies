@@ -26,19 +26,20 @@ export default function App () {
     getMovies();
   }, []);
 
-  const addToSavedList = id => {
+  const addToSavedList = movie => {
     // This is stretch. Prevent the same movie from being "saved" more than once
+    return saved.includes(movie) ? null : setSaved([...saved, movie]);
   };
 
   return (
     <div>
-      <SavedList list={[ /* This is stretch */]} />
+      <SavedList list={saved} />
 
       <Route exact path={'/'}>
         <MovieList movies={movieList}/>
       </Route>
       <Route path={'/movies/:movieID'}>
-        <Movie movies={movieList}/>
+        <Movie addToSavedList={addToSavedList}/>
       </Route>
     </div>
   );
